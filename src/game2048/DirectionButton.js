@@ -1,8 +1,8 @@
 import { Button } from 'react-bootstrap';
 
-const DirectionButton = ({ direction }) => {
+const DirectionButton = ({ direction, func }) => {
     return (
-        <Button>
+        <Button onClick={func}>
             {direction}
         </Button>
     );
