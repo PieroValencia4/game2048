@@ -1,3 +1,5 @@
+import "./Board.css"
+
 import { Component } from 'react';
 
 import { Col, Container, Row } from 'react-bootstrap';
@@ -20,8 +22,22 @@ class Board extends Component {
         this.setState({values: this.getValues()});
     }
 
+    checkBoard() {
+        const { values } = this.state;
+
+        if (!(values.includes(0)) || values.includes(2048)) {
+            this.endGame();
+        }
+    }
+
+    endGame() {
+        alert("End of the game");
+    }
+
     getValues() {
-        const values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const values = new Array(16);
+        values.fill(0);
+
         const random = () => Math.round(Math.random() * 100) % 16;
 
         let index1 = random();
@@ -35,18 +51,6 @@ class Board extends Component {
         values[index2] = 2;
 
         return values;
-    }
-
-    checkBoard() {
-        const { values } = this.state;
-
-        if (!(values.includes(0)) || values.includes(2048)) {
-            this.endGame();
-        }
-    }
-
-    endGame() {
-        alert("End of the game");
     }
 
     movDown() {
@@ -79,12 +83,11 @@ class Board extends Component {
 
         return (
             <>
-                <Container>
-                    <Row>
+                <Container className='section'>
+                    <Row className='justify-content-md-center'>
                         {cells}
                     </Row>
                 </Container>
-                <br /><hr /><br />
                 <ButtonBar
                     movDown={this.movDown}
                     movLeft={this.movLeft}

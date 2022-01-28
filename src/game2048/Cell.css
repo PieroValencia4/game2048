@@ -1,0 +1,22 @@
+.cell {
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+	/*width: 130px;*/
+	height: 120px;
+	border: 2px solid black;
+	margin: 2px;
+}
+
+.cell-0 { background-color: #F3A392 }
+.cell-2 { background-color: #F3D692 }
+.cell-4 { background-color: #B6E14A }
+.cell-8 { background-color: #81F757 }
+.cell-16 { background-color: #6FF48B }
+.cell-32 { background-color: #80F5C4 }
+.cell-64 { background-color: #80C0F5 }
+.cell-128 { background-color: #808EF5 }
+.cell-256 { background-color: #AE80F5 }
+.cell-512 { background-color: #F580F5 }
+.cell-1024 { background-color: #F44051 }
+.cell-2048 { background-color: #F48600 }
