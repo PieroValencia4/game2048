@@ -3,9 +3,9 @@ import './Cell.css'
 import { Col } from 'react-bootstrap';
 
 const Cell = ({ value }) => (
-    <div className={`cell cell-${value}`}>
+    <Col className={`cell cell-${value}`}>
         {value}
-    </div>
+    </Col>
 );
 
 export default Cell;

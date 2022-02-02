@@ -4,7 +4,7 @@ import { Component } from 'react';
 
 import { Col, Container, Row } from 'react-bootstrap';
 
-import ButtonBar from "./ButtonBar";
+import ControlBar from "./ControlBar";
 import Cell from "./Cell";
 
 class Board extends Component {
@@ -75,20 +75,36 @@ class Board extends Component {
 
     render() {
         const { values } = this.state;
-        const cells = values.map(value =>
-            <Col sm={3}>
-                <Cell value={value} />
-            </Col>
-        );
 
         return (
             <>
                 <Container className='section'>
-                    <Row className='justify-content-md-center'>
-                        {cells}
+                    <Row className='justify-content-md-center' sm={3}>
+                        <Cell value={values[0]} />
+                        <Cell value={values[1]} />
+                        <Cell value={values[2]} />
+                        <Cell value={values[3]} />
+                    </Row>
+                    <Row className='justify-content-md-center' sm={3}>
+                        <Cell value={values[4]} />
+                        <Cell value={values[5]} />
+                        <Cell value={values[6]} />
+                        <Cell value={values[7]} />
+                    </Row>
+                    <Row className='justify-content-md-center' sm={3}>
+                        <Cell value={values[8]} />
+                        <Cell value={values[9]} />
+                        <Cell value={values[10]} />
+                        <Cell value={values[11]} />
+                    </Row>
+                    <Row className='justify-content-md-center' sm={3}>
+                        <Cell value={values[12]} />
+                        <Cell value={values[13]} />
+                        <Cell value={values[14]} />
+                        <Cell value={values[15]} />
                     </Row>
                 </Container>
-                <ButtonBar
+                <ControlBar
                     movDown={this.movDown}
                     movLeft={this.movLeft}
                     movRight={this.movRight}
