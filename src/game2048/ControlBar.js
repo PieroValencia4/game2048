@@ -6,11 +6,20 @@ const Score = () => (
     <b>Score: X</b>
 );
 
+const NumbMov = () => (
+    <b>N° movimientos: X</b>
+);
+
 const ControlBar = ({ movDown, movLeft, movRight, movUp }) => (
     <Container>
         <Row className='justify-content-md-center'>
             <Col sm={2}>
-                <Score />
+                <Row>
+                    <Score />
+                </Row>
+                <Row>
+                    <NumbMov />
+                </Row>
             </Col>
             <Col sm={8}>
                 <Row className='row justify-content-md-center'>

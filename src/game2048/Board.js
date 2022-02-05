@@ -2,7 +2,7 @@ import "./Board.css"
 
 import { Component } from 'react';
 
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 import ControlBar from "./ControlBar";
 import Cell from "./Cell";
@@ -10,8 +10,11 @@ import Cell from "./Cell";
 class Board extends Component {
     constructor(props) {
         super(props);
-        this.state = {values: []};
-        /* Functions */
+        this.state = {
+            cellValues: new Array(16).fill(0),
+            freeCellIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        };
+
         this.movDown = this.movDown.bind(this);
         this.movLeft = this.movLeft.bind(this);
         this.movRight = this.movRight.bind(this);
@@ -19,13 +22,15 @@ class Board extends Component {
     }
 
     componentDidMount() {
-        this.setState({values: this.getValues()});
+        // El tablero debe aparecer con dos casillas llenas por defecto
+        this.fillRandomCell();
+        this.fillRandomCell();
     }
 
     checkBoard() {
-        const { values } = this.state;
+        const { cellValues, freeCellIndices } = this.state;
 
-        if (!(values.includes(0)) || values.includes(2048)) {
+        if (!(freeCellIndices.length === 0) || cellValues.includes(2048)) {
             this.endGame();
         }
     }
@@ -34,74 +39,72 @@ class Board extends Component {
         alert("End of the game");
     }
 
-    getValues() {
-        const values = new Array(16);
-        values.fill(0);
+    fillRandomCell() {
+        const { cellValues, freeCellIndices } = this.state;
+        const freeCells = freeCellIndices.length;
 
-        const random = () => Math.round(Math.random() * 100) % 16;
+        if (freeCells > 0) {
+            const random = () => Math.round(Math.random() * 100) % freeCells;
+            const freeIndex = freeCellIndices[random()];
+            cellValues[freeIndex] = 2;
 
-        let index1 = random();
-        let index2 = random();
+            const freeCellIndicesNew = [];
 
-        while (index1 === index2) {
-            index2 = random();
+            for (let i = 0; i < 16; i++) {
+                if (cellValues[i] === 0) {
+                    freeCellIndicesNew.push(i);
+                }
+            }
+
+            this.setState({cellValues: cellValues, freeCellIndices: freeCellIndicesNew});
         }
-
-        values[index1] = 2;
-        values[index2] = 2;
-
-        return values;
     }
 
     movDown() {
-        alert("movDown");
+        this.fillRandomCell();
     }
 
     movLeft() {
-        alert("movLeft");
+        this.fillRandomCell();
     }
 
     movRight() {
-        alert("movRight");
+        this.fillRandomCell();
     }
 
     movUp() {
-        alert("movUp");
-    }
-
-    setValue() {
-        
+        this.fillRandomCell();
     }
 
     render() {
-        const { values } = this.state;
+        const { cellValues } = this.state;
 
         return (
             <>
                 <Container className='section'>
                     <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={values[0]} />
-                        <Cell value={values[1]} />
-                        <Cell value={values[2]} />
-                        <Cell value={values[3]} />
+                        <Cell value={cellValues[0]} />
+                        <Cell value={cellValues[1]} />
+                        <Cell value={cellValues[2]} />
+                        <Cell value={cellValues[3]} />
                     </Row>
                     <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={values[4]} />
-                        <Cell value={values[5]} />
-                        <Cell value={values[6]} />
-                        <Cell value={values[7]} />
+                        <Cell value={cellValues[4]} />
+                        <Cell value={cellValues[5]} />
+                        <Cell value={cellValues[6]} />
+                        <Cell value={cellValues[7]} />
                     </Row>
                     <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={values[8]} />
-                        <Cell value={values[9]} />
-                        <Cell value={values[10]} />
-                        <Cell value={values[11]} />
+                        <Cell value={cellValues[8]} />
+                        <Cell value={cellValues[9]} />
+                        <Cell value={cellValues[10]} />
+                        <Cell value={cellValues[11]} />
                     </Row>
                     <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={values[12]} />
-                        <Cell value={values[13]} />
-                        <Cell value={values[14]} />
-                        <Cell value={values[15]} />
+                        <Cell value={cellValues[12]} />
+                        <Cell value={cellValues[13]} />
+                        <Cell value={cellValues[14]} />
+                        <Cell value={cellValues[15]} />
                     </Row>
                 </Container>
                 <ControlBar

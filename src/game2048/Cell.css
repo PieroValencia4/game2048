@@ -1,11 +1,16 @@
 .cell {
 	font-size: 40px;
 	font-weight: bold;
-	text-align: center;
+	/*text-align: center;*/
 	width: 120px;
 	height: 120px;
-	border: 1px solid gray;
+	border: 3px solid gray;
 	margin: 1px;
+	/*outline: 1rem solid;*/
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .cell-0 { background-color: #F3A392 }
