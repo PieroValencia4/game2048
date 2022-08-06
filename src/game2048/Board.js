@@ -1,121 +1,158 @@
 import "./Board.css"
 
 import { Component } from 'react';
-
 import { Container, Row } from 'react-bootstrap';
 
-import ControlBar from "./ControlBar";
 import Cell from "./Cell";
 
-class Board extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cellValues: new Array(16).fill(0),
-            freeCellIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        };
+// class Board extends Component {
+    // checkBoard() {
+        
+    //     const { cellValues, freeCellIndices } = this.state;
 
-        this.movDown = this.movDown.bind(this);
-        this.movLeft = this.movLeft.bind(this);
-        this.movRight = this.movRight.bind(this);
-        this.movUp = this.movUp.bind(this);
-    }
+    //     if (!(freeCellIndices.length === 0) || cellValues.includes(2048)) {
+    //         this.endGame();
+    //     }
+        
+    // }
 
-    componentDidMount() {
-        // El tablero debe aparecer con dos casillas llenas por defecto
-        this.fillRandomCell();
-        this.fillRandomCell();
-    }
+    // setRandom() {
+    //     const { cellValues } = this.state;
+    //     const freeCells = [];
+        
+    //     for (let i = 0; i < cellValues.length; i++) {
+    //         if (cellValues[i] === 0) {
+    //             freeCells.push(i);
+    //         }            
+    //     }
 
-    checkBoard() {
-        const { cellValues, freeCellIndices } = this.state;
+    //     if (freeCells.length > 0) {
+    //         const random = () => Math.round(Math.random() * 100) % freeCells.length;
+    //         const freeIndex = freeCells[random()];
 
-        if (!(freeCellIndices.length === 0) || cellValues.includes(2048)) {
-            this.endGame();
-        }
-    }
+    //         this.setState(function(state, props) {
+    //             const cellValuesNew = state.cellValues;
+    //             cellValuesNew[freeIndex] = 2;
+    //             return {cellValues: cellValuesNew}
+    //         });
+    //     }
+    // }
 
-    endGame() {
-        alert("End of the game");
-    }
+    // rightMovement() {
+    //     this.leftMovement('RIGHT');
+    // }
 
-    fillRandomCell() {
-        const { cellValues, freeCellIndices } = this.state;
-        const freeCells = freeCellIndices.length;
+    // leftMovement(direction = 'LEFT') {
+    //     // Get cell values
+    //     const { cellValues } = this.state;
 
-        if (freeCells > 0) {
-            const random = () => Math.round(Math.random() * 100) % freeCells;
-            const freeIndex = freeCellIndices[random()];
-            cellValues[freeIndex] = 2;
+    //     let newCellValuesTemp = [];
 
-            const freeCellIndicesNew = [];
+    //     for (let i = 0; i < 16; i += 4) {
+    //         let row = cellValues.slice(i, i + 4).filter(v => v !== 0);
+    //         newCellValuesTemp.push(row);
+    //     }
 
-            for (let i = 0; i < 16; i++) {
-                if (cellValues[i] === 0) {
-                    freeCellIndicesNew.push(i);
-                }
-            }
+    //     for (let c = 0; c < 4; c++) {
+    //         let val1, val2, row = newCellValuesTemp[c];
 
-            this.setState({cellValues: cellValues, freeCellIndices: freeCellIndicesNew});
-        }
-    }
+    //         for (let i = 0; i < row.length - 1; i++) {
+    //             val1 = row[i];
+    //             val2 = row[i + 1];
 
-    movDown() {
-        this.fillRandomCell();
-    }
+    //             if (val1 === val2) {
+    //                 // Check if the second element of the pair is the last element of the list
+    //                 if (i + 2 == row.length) {
+    //                     row = row.slice(0, i);
+    //                     row.push(val1 + val2);
+    //                 } else {
+    //                     row = row.slice(i + 2);
+    //                     row.unshift(val1 + val2);
+    //                 }
+    //             }
+    //         }
 
-    movLeft() {
-        this.fillRandomCell();
-    }
+    //         for (let i = row.length; i < 4; i++) {
+    //             row.push(0);
+    //         }
 
-    movRight() {
-        this.fillRandomCell();
-    }
+    //         // newCellValuesTemp[c] = row;
+    //         // alert(newCellValuesTemp);
+    //     }
 
-    movUp() {
-        this.fillRandomCell();
-    }
+    //     this.setState({cellValues: newCellValuesTemp});
+    //     this.setRandom();
+    // }
 
-    render() {
-        const { cellValues } = this.state;
+    // render() {
+    //     const { cellValues } = this.state;
 
-        return (
-            <>
-                <Container className='section'>
-                    <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={cellValues[0]} />
-                        <Cell value={cellValues[1]} />
-                        <Cell value={cellValues[2]} />
-                        <Cell value={cellValues[3]} />
-                    </Row>
-                    <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={cellValues[4]} />
-                        <Cell value={cellValues[5]} />
-                        <Cell value={cellValues[6]} />
-                        <Cell value={cellValues[7]} />
-                    </Row>
-                    <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={cellValues[8]} />
-                        <Cell value={cellValues[9]} />
-                        <Cell value={cellValues[10]} />
-                        <Cell value={cellValues[11]} />
-                    </Row>
-                    <Row className='justify-content-md-center' sm={3}>
-                        <Cell value={cellValues[12]} />
-                        <Cell value={cellValues[13]} />
-                        <Cell value={cellValues[14]} />
-                        <Cell value={cellValues[15]} />
-                    </Row>
-                </Container>
-                <ControlBar
-                    movDown={this.movDown}
-                    movLeft={this.movLeft}
-                    movRight={this.movRight}
-                    movUp={this.movUp}
-                />
-            </>
-        );
-    }
-}
+    //     return (
+    //         <>
+    //             <Container className='section'>
+    //                 <Row className='justify-content-md-center' sm={3}>
+    //                     <Cell value={cellValues[0]} />
+    //                     <Cell value={cellValues[1]} />
+    //                     <Cell value={cellValues[2]} />
+    //                     <Cell value={cellValues[3]} />
+    //                 </Row>
+    //                 <Row className='justify-content-md-center' sm={3}>
+    //                     <Cell value={cellValues[4]} />
+    //                     <Cell value={cellValues[5]} />
+    //                     <Cell value={cellValues[6]} />
+    //                     <Cell value={cellValues[7]} />
+    //                 </Row>
+    //                 <Row className='justify-content-md-center' sm={3}>
+    //                     <Cell value={cellValues[8]} />
+    //                     <Cell value={cellValues[9]} />
+    //                     <Cell value={cellValues[10]} />
+    //                     <Cell value={cellValues[11]} />
+    //                 </Row>
+    //                 <Row className='justify-content-md-center' sm={3}>
+    //                     <Cell value={cellValues[12]} />
+    //                     <Cell value={cellValues[13]} />
+    //                     <Cell value={cellValues[14]} />
+    //                     <Cell value={cellValues[15]} />
+    //                 </Row>
+    //             </Container>
+    //             <ControlBar
+    //                 movDown={this.endGame}
+    //                 movLeft={this.leftMovement}
+    //                 movRight={this.rightMovement}
+    //                 movUp={this.endGame}
+    //             />
+    //         </>
+    //     );
+    // }
+// }
+
+const Board = ({ cellValues }) => (
+    <Container className='section'>
+        <Row className='justify-content-md-center' sm={3}>
+            <Cell value={cellValues[0]} />
+            <Cell value={cellValues[1]} />
+            <Cell value={cellValues[2]} />
+            <Cell value={cellValues[3]} />
+        </Row>
+        <Row className='justify-content-md-center' sm={3}>
+            <Cell value={cellValues[4]} />
+            <Cell value={cellValues[5]} />
+            <Cell value={cellValues[6]} />
+            <Cell value={cellValues[7]} />
+        </Row>
+        <Row className='justify-content-md-center' sm={3}>
+            <Cell value={cellValues[8]} />
+            <Cell value={cellValues[9]} />
+            <Cell value={cellValues[10]} />
+            <Cell value={cellValues[11]} />
+        </Row>
+        <Row className='justify-content-md-center' sm={3}>
+            <Cell value={cellValues[12]} />
+            <Cell value={cellValues[13]} />
+            <Cell value={cellValues[14]} />
+            <Cell value={cellValues[15]} />
+        </Row>
+    </Container>
+);
 
 export default Board;

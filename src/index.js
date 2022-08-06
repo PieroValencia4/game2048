@@ -5,11 +5,11 @@ import reportWebVitals from './reportWebVitals';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Board from './game2048/Board';
+import App from './game2048/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Board />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
